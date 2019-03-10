@@ -1,8 +1,19 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
+import AppSyncOrderList from './components/AppSyncOrderList';
+import MinimalAddOrder from './components/MinimalAddOrder';
+
+// function Orders() {
+//   return <h2>Orders</h2>;
+// }
+
 function Orders() {
-  return <h2>Orders</h2>;
+  return (
+    <div>
+      <AppSyncOrderList />
+    </div>
+  )
 }
 
 function About() {
