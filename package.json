@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "aws-amplify": "^1.1.22",    
+    "aws-amplify": "^1.1.22",
+    "aws-amplify-react": "^2.3.2",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "react-scripts": "2.1.8"
+    "react-scripts": "2.1.8",
+    "typescript": "^3.3.3333"
   },
   "scripts": {
     "start": "react-scripts start",

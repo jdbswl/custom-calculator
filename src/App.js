@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import Amplify from 'aws-amplify';
+import awsmobile from './aws-exports';
+import { withAuthenticator } from 'aws-amplify-react';
+Amplify.configure(awsmobile);
+
 class App extends Component {
   render() {
     return (
@@ -11,18 +16,21 @@ class App extends Component {
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
         </header>
       </div>
     );
   }
 }
 
-export default App;
+const signUpConfig = {
+  includeGreetings: true,
+  hiddenDefaults: ['phone_number'],
+  // signUpFields: [{
+  //   key: 'phone_number',
+  //   required: false
+  // }]
+}
+
+export default withAuthenticator(App, {
+  signUpConfig
+});
