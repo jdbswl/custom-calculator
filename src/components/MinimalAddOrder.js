@@ -1,8 +1,4 @@
 import React from 'react';
-import Amplify from 'aws-amplify';
-import awsmobile from '../aws-exports';
-
-Amplify.configure(awsmobile);
 
 class MinimalAddOrder extends React.Component {
   constructor(props) {
