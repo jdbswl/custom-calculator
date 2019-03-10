@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
-import Amplify, { Analytics, API, graphqlOperation} from 'aws-amplify';
+import Amplify, { API, graphqlOperation} from 'aws-amplify';
+import { Connect } from 'aws-amplify-react';
 import awsmobile from './aws-exports';
 import { withAuthenticator } from 'aws-amplify-react';
 
 import MinimalOrderList from './components/MinimalOrderList';
+import MinimalAddOrder from './components/MinimalAddOrder';
+
+import * as mutations from './graphql/mutations';
 
 Amplify.configure(awsmobile);
 
@@ -45,6 +49,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <Connect mutation={graphqlOperation(mutations.createOrder)}>
+          {({mutation}) => (
+            <MinimalAddOrder onCreate={mutation} />
+          )}
+        </Connect>
         <MinimalOrderList />
         <button onClick={this.listQuery}>GraphQL Query</button>
         <button onClick={this.orderMutation}>GraphQL Mutation</button>

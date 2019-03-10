@@ -1,9 +1,10 @@
 import React from 'react';
 import Amplify, { graphqlOperation} from 'aws-amplify';
+
 import awsmobile from '../aws-exports';
 import { Connect } from 'aws-amplify-react';
+
 import * as queries from '../graphql/queries';
-import * as subscriptions from '../graphql/subscriptions';
 
 Amplify.configure(awsmobile);
 
