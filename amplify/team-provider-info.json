@@ -1,0 +1,19 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "custom-calculator-20190309224230-authRole",
+            "UnauthRoleArn": "arn:aws:iam::704845113043:role/custom-calculator-20190309224230-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::704845113043:role/custom-calculator-20190309224230-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "custom-calculator-20190309224230-deployment",
+            "UnauthRoleName": "custom-calculator-20190309224230-unauthRole",
+            "StackName": "custom-calculator-20190309224230",
+            "StackId": "arn:aws:cloudformation:us-east-1:704845113043:stack/custom-calculator-20190309224230/8812de40-42e6-11e9-a514-12f08cf73b28"
+        },
+        "categories": {
+            "auth": {
+                "cognito0179e9b1": {}
+            }
+        }
+    }
+}

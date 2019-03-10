@@ -1,0 +1,20 @@
+{
+    "appName": "CustomCalculator",
+    "roleName": "pinpointLambdaRole58694b7f",
+    "cloudWatchPolicyName": "cloudWatchPolicy58694b7f",
+    "pinpointPolicyName": "pinpointPolicy58694b7f",
+    "authPolicyName": "pinpoint_amplify_58694b7f",
+    "unauthPolicyName": "pinpoint_amplify_58694b7f",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    }
+}

@@ -1,0 +1,30 @@
+{
+    "identityPoolName": "custom_calculator_identitypool_b42f2649",
+    "allowUnauthenticatedIdentities": true,
+    "thirdPartyAuth": false,
+    "lambdaLogPolicy": "custom_calculator_lambda_log_policy",
+    "openIdLambdaRoleName": "custom_calculator_openid_lambda_role",
+    "openIdRolePolicy": "custom_calculator_openid_pass_role_policy",
+    "openIdLambdaIAMPolicy": "custom_calculator_openid_lambda_iam_policy",
+    "openIdLogPolicy": "custom_calculator_openid_lambda_log_policy",
+    "authSelections": "identityPoolOnly",
+    "resourceName": "cognito0179e9b1",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    },
+    "unauthRoleArn": {
+        "Fn::GetAtt": [
+            "UnauthRole",
+            "Arn"
+        ]
+    }
+}
