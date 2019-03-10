@@ -3,9 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "apollo-client": "^2.5.1",
     "aws-amplify": "^1.1.22",
     "aws-amplify-react": "^2.3.2",
+    "aws-appsync": "^1.7.1",
+    "aws-appsync-react": "^1.2.6",
+    "graphql": "^0.11.7",
     "react": "^16.8.4",
+    "react-apollo": "^2.5.2",
     "react-dom": "^16.8.4",
     "react-scripts": "2.1.8",
     "typescript": "^3.3.3333"
