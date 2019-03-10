@@ -1,18 +1,13 @@
+import Amplify, { Auth } from 'aws-amplify';
+import { withAuthenticator } from 'aws-amplify-react';
 import AWSAppSyncClient from 'aws-appsync';
 import { Rehydrated } from 'aws-appsync-react';
+import React from 'react';
 import { ApolloProvider } from 'react-apollo';
-import React, { Component } from 'react';
-import './App.css';
-import Amplify, { Auth, graphqlOperation} from 'aws-amplify';
-import { Connect } from 'aws-amplify-react';
-import awsmobile from './aws-exports';
-import { withAuthenticator } from 'aws-amplify-react';
 
-import MinimalOrderList from './components/MinimalOrderList';
-import MinimalAddOrder from './components/MinimalAddOrder';
-import * as mutations from './graphql/mutations';
-import * as queries from './graphql/queries';
-import * as subscriptions from './graphql/subscriptions';
+import './App.css';
+import awsmobile from './aws-exports';
+import AppRouter from './AppRouter';
 
 
 Amplify.configure(awsmobile);
@@ -26,32 +21,12 @@ const client = new AWSAppSyncClient({
   }
 });
 
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
       <ApolloProvider client={client}>
         <Rehydrated>
-          <div className="App">
-            <Connect mutation={graphqlOperation(mutations.createOrder)}>
-              {({mutation}) => (
-                <MinimalAddOrder onCreate={mutation} />
-              )}
-            </Connect>
-
-            <Connect query={graphqlOperation(queries.listOrders)}
-              subscription={graphqlOperation(subscriptions.onCreateOrder)}
-              onSubscriptionMsg={(prev, {onCreateOrder}) => {
-                console.log('Order data: ', onCreateOrder);
-                return prev;
-              }
-            }>
-              {({ data: { listOrders }, loading, error }) => {
-                if(error) return (<h3>Error</h3>);
-                if(loading || !listOrders) return (<h3>Loading...</h3>);
-                return (<MinimalOrderList orders={listOrders.items} />);
-              }}
-            </Connect>
-          </div>
+          <AppRouter />
         </Rehydrated>
       </ApolloProvider>
     );
@@ -66,3 +41,30 @@ const signUpConfig = {
 export default withAuthenticator(App, {
   signUpConfig
 });
+
+
+
+//
+//
+//
+// <div className="App">
+//   <Connect mutation={graphqlOperation(mutations.createOrder)}>
+//     {({mutation}) => (
+//       <MinimalAddOrder onCreate={mutation} />
+//     )}
+//   </Connect>
+//
+//   <Connect query={graphqlOperation(queries.listOrders)}
+//     subscription={graphqlOperation(subscriptions.onCreateOrder)}
+//     onSubscriptionMsg={(prev, {onCreateOrder}) => {
+//       console.log('Order data: ', onCreateOrder);
+//       return prev;
+//     }
+//   }>
+//     {({ data: { listOrders }, loading, error }) => {
+//       if(error) return (<h3>Error</h3>);
+//       if(loading || !listOrders) return (<h3>Loading...</h3>);
+//       return (<MinimalOrderList orders={listOrders.items} />);
+//     }}
+//   </Connect>
+// </div>
