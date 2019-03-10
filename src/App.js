@@ -1,32 +1,52 @@
-import Amplify, { Auth } from 'aws-amplify';
+import Amplify from 'aws-amplify';
 import { withAuthenticator } from 'aws-amplify-react';
 import AWSAppSyncClient from 'aws-appsync';
 import { Rehydrated } from 'aws-appsync-react';
+import gql from 'graphql-tag';
 import React from 'react';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider, graphql } from 'react-apollo';
 
 import './App.css';
 import awsmobile from './aws-exports';
 import AppRouter from './AppRouter';
-
+import * as queries from './graphql/queries';
 
 Amplify.configure(awsmobile);
 
-const client = new AWSAppSyncClient({
-  url: awsmobile.aws_appsync_graphqlEndpoint,
-  region: awsmobile.aws_appsync_region,
-  auth: {
-    type: awsmobile.aws_appsync_authenticationType,
-    jwtToken: async () => (await Auth.currenSession()).getAccessToken().getJwtToken(),
+const ApolloRoutes = graphql(
+  gql(queries.listOrders), {
+    options: {
+      fetchPolicy: 'cache-and-network'
+    },
+    props: props => ({
+      orders: props.data.listOrders ? props.data.listOrders.items : []
+    })
   }
-});
+)(AppRouter)
 
 class App extends React.Component {
   render() {
+    const signInUserSession = this.props.authData.signInUserSession;
+    let accessToken = null;
+    if(signInUserSession) {
+      accessToken = signInUserSession.accessToken.jwtToken;
+      console.log(`Access Token: ${accessToken}`)
+    }
+
+    const client = new AWSAppSyncClient({
+      url: awsmobile.aws_appsync_graphqlEndpoint,
+      region: awsmobile.aws_appsync_region,
+      auth: {
+        type: awsmobile.aws_appsync_authenticationType,
+        jwtToken: accessToken
+        // jwtToken: async () => (await Auth.currenSession()).getAccessToken().getJwtToken(),
+      }
+    });
+
     return (
       <ApolloProvider client={client}>
         <Rehydrated>
-          <AppRouter />
+          <ApolloRoutes />
         </Rehydrated>
       </ApolloProvider>
     );
@@ -38,9 +58,15 @@ const signUpConfig = {
   hiddenDefaults: ['phone_number'],
 }
 
-export default withAuthenticator(App, {
-  signUpConfig
-});
+// class AppWithAuthenticator extends React.Component {
+//   render() {
+//     return withAuthenticator(App, {
+//       signUpConfig
+//     });
+//   }
+// }
+
+export default withAuthenticator(App, signUpConfig);
 
 
 
