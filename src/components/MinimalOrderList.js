@@ -1,26 +1,31 @@
-import React, { Component } from 'react';
-import '../App.css';
-
-import Amplify, { API, graphqlOperation} from 'aws-amplify';
+import React from 'react';
+import Amplify, { graphqlOperation} from 'aws-amplify';
 import awsmobile from '../aws-exports';
-
+import { Connect } from 'aws-amplify-react';
 import * as queries from '../graphql/queries';
 import * as subscriptions from '../graphql/subscriptions';
 
 Amplify.configure(awsmobile);
 
-class MinimalOrderList extends Component {
-  listQuery = async () => {
-    console.log('listing orders');
-    const allOrders = await API.graphql(graphqlOperation(queries.listOrders));
-    alert(JSON.stringify(allOrders));
-  }
-
+class MinimalOrderList extends React.Component {
   render() {
-    return (
-      <div className="MinimalOrderList">
-        <button onClick={this.listQuery}>Codegen GraphQL Query</button>
+    const ListView = ({ orders }) => (
+      <div>
+        <h3>All Orders</h3>
+        <ul>
+          {orders.map(order => <li key={order.id}>{order.name}</li>)}
+        </ul>
       </div>
+    );
+
+    return (
+      <Connect query={graphqlOperation(queries.listOrders)}>
+        {({ data: { listOrders }, loading, error }) => {
+          if(error) return (<h3>Error</h3>);
+          if(loading || !listOrders) return (<h3>Loading...</h3>);
+          return (<ListView orders={listOrders.items} />);
+        }}
+      </Connect>
     );
   }
 }
