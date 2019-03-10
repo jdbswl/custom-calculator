@@ -1,0 +1,168 @@
+type Order {
+  id: ID!
+  name: String!
+  notes: [String!]
+  lineItems(filter: ModelLineItemFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelLineItemConnection
+}
+
+type LineItem {
+  id: ID!
+  name: String!
+  costPerItem: Int!
+  pricePerItem: Int!
+  count: Int!
+  order: Order
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelOrderConnection {
+  items: [Order]
+  nextToken: String
+}
+
+input ModelStringFilterInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+}
+
+input ModelIDFilterInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+}
+
+input ModelIntFilterInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  contains: Int
+  notContains: Int
+  between: [Int]
+}
+
+input ModelFloatFilterInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  contains: Float
+  notContains: Float
+  between: [Float]
+}
+
+input ModelBooleanFilterInput {
+  ne: Boolean
+  eq: Boolean
+}
+
+input ModelOrderFilterInput {
+  id: ModelIDFilterInput
+  name: ModelStringFilterInput
+  notes: ModelStringFilterInput
+  and: [ModelOrderFilterInput]
+  or: [ModelOrderFilterInput]
+  not: ModelOrderFilterInput
+}
+
+type Query {
+  getOrder(id: ID!): Order
+  listOrders(filter: ModelOrderFilterInput, limit: Int, nextToken: String): ModelOrderConnection
+  getLineItem(id: ID!): LineItem
+  listLineItems(filter: ModelLineItemFilterInput, limit: Int, nextToken: String): ModelLineItemConnection
+}
+
+input CreateOrderInput {
+  id: ID
+  name: String!
+  notes: [String!]
+}
+
+input UpdateOrderInput {
+  id: ID!
+  name: String
+  notes: [String!]
+}
+
+input DeleteOrderInput {
+  id: ID
+}
+
+type Mutation {
+  createOrder(input: CreateOrderInput!): Order
+  updateOrder(input: UpdateOrderInput!): Order
+  deleteOrder(input: DeleteOrderInput!): Order
+  createLineItem(input: CreateLineItemInput!): LineItem
+  updateLineItem(input: UpdateLineItemInput!): LineItem
+  deleteLineItem(input: DeleteLineItemInput!): LineItem
+}
+
+type Subscription {
+  onCreateOrder: Order @aws_subscribe(mutations: ["createOrder"])
+  onUpdateOrder: Order @aws_subscribe(mutations: ["updateOrder"])
+  onDeleteOrder: Order @aws_subscribe(mutations: ["deleteOrder"])
+  onCreateLineItem: LineItem @aws_subscribe(mutations: ["createLineItem"])
+  onUpdateLineItem: LineItem @aws_subscribe(mutations: ["updateLineItem"])
+  onDeleteLineItem: LineItem @aws_subscribe(mutations: ["deleteLineItem"])
+}
+
+type ModelLineItemConnection {
+  items: [LineItem]
+  nextToken: String
+}
+
+input ModelLineItemFilterInput {
+  id: ModelIDFilterInput
+  name: ModelStringFilterInput
+  costPerItem: ModelIntFilterInput
+  pricePerItem: ModelIntFilterInput
+  count: ModelIntFilterInput
+  and: [ModelLineItemFilterInput]
+  or: [ModelLineItemFilterInput]
+  not: ModelLineItemFilterInput
+}
+
+input CreateLineItemInput {
+  id: ID
+  name: String!
+  costPerItem: Int!
+  pricePerItem: Int!
+  count: Int!
+  lineItemOrderId: ID
+}
+
+input UpdateLineItemInput {
+  id: ID!
+  name: String
+  costPerItem: Int
+  pricePerItem: Int
+  count: Int
+  lineItemOrderId: ID
+}
+
+input DeleteLineItemInput {
+  id: ID
+}

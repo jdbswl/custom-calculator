@@ -1,0 +1,52 @@
+type Order @model {
+  id: ID!
+  name: String!
+  notes: [String!]
+  lineItems: [LineItem!] @connection(name: "LineItems")
+}
+type LineItem @model {
+  id: ID!
+  name: String!
+  costPerItem: Int!
+  pricePerItem: Int!
+  count: Int!
+  order: Order @connection(name: "LineItems")
+}
+
+
+# markup: Int!
+
+# type Note @model {
+#   id: ID!
+#   content: String
+#   order: Order @connection(name: "OrderNotes")
+# }
+
+
+  # customer: [Customer!] @connection(name: "Customers")
+# type Customer @model {
+#   id: ID!
+#   firstName: String
+#   lastName: String
+#   email: String
+#   order: Order @connection(name: "Customers")
+# }
+
+
+
+# type Blog @model {
+#   id: ID!
+#   name: String!
+#   posts: [Post] @connection(name: "BlogPosts")
+# }
+# type Post @model {
+#   id: ID!
+#   title: String!
+#   blog: Blog @connection(name: "BlogPosts")
+#   comments: [Comment] @connection(name: "PostComments")
+# }
+# type Comment @model {
+#   id: ID!
+#   content: String
+#   post: Post @connection(name: "PostComments")
+# }
