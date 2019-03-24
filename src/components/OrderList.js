@@ -11,9 +11,9 @@ const OrderList = () => (
     {({ loading, error, data }) => {
       if(loading) return (<p>Loading...</p>);
       if(error) return (<p>Error</p>);
-      return data.listOrders.items.map(({id, name}) => (
-        <div key={id}>
-          <p>{name}</p>
+      return data.listOrders.items.map((order, index) => (
+        <div key={index}>
+          <p>{index+1}. {order.name}</p>
         </div>
       ));
     }}
