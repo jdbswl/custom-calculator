@@ -10,40 +10,32 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import * as queries from '../graphql/queries';
 
-const LIST_ORDERS = gql(queries.listOrders);
+const GET_ORDER = gql(queries.getOrder);
 
-const styles = theme => ({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    // backgroundColor: theme.pallete.background.paper,
-  },
-});
-
-function ListItemLink(props) {
-  return <ListItem button component="a" {...props}/>;
-}
-
-const OrderList = () => (
-  <Query query={LIST_ORDERS}>
+// const demoId=
+// {orderId=
+//'70326b5c-c78a-4a0e-952b-2c8ba213af60'
+//}
+const OrderDetails = () => (
+  <Query query={GET_ORDER} variables={{id:'70326b5c-c78a-4a0e-952b-2c8ba213af60'}}>
     {({ loading, error, data }) => {
       if(loading) return (<p>Loading...</p>);
-      if(error) return (<p>Error</p>);
+      if(error) {console.log(error); return (<p>Error</p>);};
       return (
         <div>
-          <h2>Orders</h2>
-          <List>
+          <h2>Order Details</h2>
             {
-              data.listOrders.items.map((order, index) => (
-                <ListItem key={order.id}>
-                  <ListItemText primary={order.name} secondary={order.id}/>
-                  <ListItemLink>Edit</ListItemLink>
-                </ListItem>
-              ))
+              data.getOrder.name
             }
-          </List>
         </div>
       );
+
+      // data.listOrders.items.map((order, index) => (
+      //   <ListItem key={order.id}>
+      //     <ListItemText primary={order.name} secondary={order.id}/>
+      //     <ListItemLink>Edit</ListItemLink>
+      //   </ListItem>
+      // ))
       // return data.listOrders.items.map((order, index) => (
       //   <div key={index}>
       //     <p>{index+1}. {order.name}  <Button variant="outlined" color="primary">Edit</Button></p>
@@ -53,7 +45,7 @@ const OrderList = () => (
   </Query>
 )
 
-export default withStyles(styles)(OrderList);
+export default OrderDetails;
 
 
       // return data.listOrders.items.map((order, index) => (
