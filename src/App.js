@@ -4,7 +4,7 @@ import AWSAppSyncClient from 'aws-appsync';
 import { Rehydrated } from 'aws-appsync-react';
 import gql from 'graphql-tag';
 import React from 'react';
-import { ApolloProvider, graphql } from 'react-apollo';
+import { ApolloProvider, compose, graphql } from 'react-apollo';
 
 import './App.css';
 import awsmobile from './aws-exports';
@@ -13,24 +13,13 @@ import * as queries from './graphql/queries';
 
 Amplify.configure(awsmobile);
 
-const ApolloRoutes = graphql(
-  gql(queries.listOrders), {
-    options: {
-      fetchPolicy: 'cache-and-network'
-    },
-    props: props => ({
-      orders: props.data.listOrders ? props.data.listOrders.items : []
-    })
-  }
-)(AppRouter)
-
 class App extends React.Component {
   render() {
+    console.log('App props:', this.props);
     const signInUserSession = this.props.authData.signInUserSession;
     let accessToken = null;
     if(signInUserSession) {
       accessToken = signInUserSession.accessToken.jwtToken;
-      console.log(`Access Token: ${accessToken}`)
     }
 
     const client = new AWSAppSyncClient({
@@ -39,14 +28,13 @@ class App extends React.Component {
       auth: {
         type: awsmobile.aws_appsync_authenticationType,
         jwtToken: accessToken
-        // jwtToken: async () => (await Auth.currenSession()).getAccessToken().getJwtToken(),
       }
     });
 
     return (
       <ApolloProvider client={client}>
         <Rehydrated>
-          <ApolloRoutes />
+          <AppRouter />
         </Rehydrated>
       </ApolloProvider>
     );
@@ -57,6 +45,36 @@ const signUpConfig = {
   includeGreetings: true,
   hiddenDefaults: ['phone_number'],
 }
+
+
+
+
+
+
+
+// const ApolloRoutes = compose(
+//   graphql(gql(queries.listOrders), {
+//       options: {
+//         fetchPolicy: 'cache-and-network'
+//       },
+//       props: props => ({
+//         orders: props.data.listOrders ? props.data.listOrders.items : []
+//       })
+//     })
+// )(AppRouter)
+
+    // return (
+    //   <ApolloProvider client={client}>
+    //     <Rehydrated>
+    //       <ApolloRoutes />
+    //     </Rehydrated>
+    //   </ApolloProvider>
+    // );
+
+
+
+
+
 
 // class AppWithAuthenticator extends React.Component {
 //   render() {

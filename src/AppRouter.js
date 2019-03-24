@@ -2,16 +2,21 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import AppSyncOrderList from './components/AppSyncOrderList';
-import MinimalAddOrder from './components/MinimalAddOrder';
+import AppSyncAddOrder from './components/AppSyncAddOrder';
 
-// function Orders() {
-//   return <h2>Orders</h2>;
-// }
 
 function Orders() {
   return (
     <div>
       <AppSyncOrderList />
+    </div>
+  )
+}
+
+function AddOrder() {
+  return (
+    <div>
+      <AppSyncAddOrder />
     </div>
   )
 }
@@ -29,12 +34,16 @@ function AppRouter() {
             <li>
               <Link to='/orders/'>Orders</Link>
             </li>
+            <li>
+              <Link to='/add-order/'>Add Order</Link>
+            </li>
           </ul>
         </nav>
 
         <Route path='/' exact component={Orders} />
         <Route path='/orders/' component={Orders} />
         <Route path='/about/' component={About} />
+        <Route path='/add-order/' component={AddOrder} />
       </div>
     </Router>
   );

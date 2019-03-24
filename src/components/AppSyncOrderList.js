@@ -4,16 +4,17 @@ import { graphql } from 'react-apollo';
 
 import * as queries from '../graphql/queries';
 
+
 class AppSyncOrderList extends React.Component {
   render() {
-    console.log(this.props);
+    console.log('App Sync Order List props: ', this.props)
     return (
       <div>
-        {
+       {
           this.props.orders.map((order, index) => (
-            <h2 key={index}>{index + 1}. {order.name}</h2>
-          ))
-        }
+           <h2 key={index}>{index + 1}. {order.name}</h2>
+         ))
+       }
       </div>
     )
   }

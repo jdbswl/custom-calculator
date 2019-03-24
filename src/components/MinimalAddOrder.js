@@ -17,7 +17,7 @@ class MinimalAddOrder extends React.Component {
     var input = {
       name: this.state.name
     }
-    console.log(input);
+    console.log('Creating new order: ', input);
     await onCreate({input});
   }
 
