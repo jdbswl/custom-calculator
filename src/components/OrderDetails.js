@@ -12,10 +12,6 @@ import * as queries from '../graphql/queries';
 
 const GET_ORDER = gql(queries.getOrder);
 
-// const demoId=
-// {orderId=
-//'70326b5c-c78a-4a0e-952b-2c8ba213af60'
-//}
 const OrderDetails = () => (
   <Query query={GET_ORDER} variables={{id:'70326b5c-c78a-4a0e-952b-2c8ba213af60'}}>
     {({ loading, error, data }) => {
@@ -29,18 +25,6 @@ const OrderDetails = () => (
             }
         </div>
       );
-
-      // data.listOrders.items.map((order, index) => (
-      //   <ListItem key={order.id}>
-      //     <ListItemText primary={order.name} secondary={order.id}/>
-      //     <ListItemLink>Edit</ListItemLink>
-      //   </ListItem>
-      // ))
-      // return data.listOrders.items.map((order, index) => (
-      //   <div key={index}>
-      //     <p>{index+1}. {order.name}  <Button variant="outlined" color="primary">Edit</Button></p>
-      //   </div>
-      // ));
     }}
   </Query>
 )
@@ -48,6 +32,20 @@ const OrderDetails = () => (
 export default OrderDetails;
 
 
+
+
+
+// data.listOrders.items.map((order, index) => (
+//   <ListItem key={order.id}>
+//     <ListItemText primary={order.name} secondary={order.id}/>
+//     <ListItemLink>Edit</ListItemLink>
+//   </ListItem>
+// ))
+// return data.listOrders.items.map((order, index) => (
+//   <div key={index}>
+//     <p>{index+1}. {order.name}  <Button variant="outlined" color="primary">Edit</Button></p>
+//   </div>
+// ));
       // return data.listOrders.items.map((order, index) => (
       //   <div key={index}>
       //     <p>{index+1}. {order.name}  <Button variant="outlined" color="primary">Edit</Button></p>

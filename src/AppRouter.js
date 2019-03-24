@@ -1,9 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 
 import AddOrder from './components/AddOrder';
 import OrderList from './components/OrderList';
 import OrderDetails from './components/OrderDetails';
+import NotFound from './components/NotFound';
 
 function AppRouter() {
   return (
@@ -22,10 +23,13 @@ function AppRouter() {
             </li>
           </ul>
         </nav>
-        <Route path='/' exact component={OrderList} />
-        <Route path='/add-order/' component={AddOrder} />
-        <Route path='/order-list/' component={OrderList} />
-        <Route path='/order-details/' component={OrderDetails} />
+        <Switch>
+          <Route path='/' exact component={OrderList} />
+          <Route path='/add-order/' component={AddOrder} />
+          <Route path='/order-list/' component={OrderList} />
+          <Route path='/order-details/' component={OrderDetails} />
+          <Route component={NotFound} />
+        </Switch>
       </div>
     </Router>
   );
