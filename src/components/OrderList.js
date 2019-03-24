@@ -13,11 +13,11 @@ import * as queries from '../graphql/queries';
 const LIST_ORDERS = gql(queries.listOrders);
 
 const styles = theme => ({
-  // root: {
-  //   width: '100%',
-  //   maxWidth: 360,
-  //   backgroundColor: theme.pallete.background.paper,
-  // },
+  root: {
+    width: '100%',
+    maxWidth: 360,
+    // backgroundColor: theme.pallete.background.paper,
+  },
 });
 
 function ListItemLink(props) {
@@ -53,7 +53,7 @@ const OrderList = () => (
   </Query>
 )
 
-export default OrderList;
+export default withStyles(styles)(OrderList);
 
 
       // return data.listOrders.items.map((order, index) => (

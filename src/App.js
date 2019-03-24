@@ -2,14 +2,13 @@ import Amplify from 'aws-amplify';
 import { withAuthenticator } from 'aws-amplify-react';
 import AWSAppSyncClient from 'aws-appsync';
 import { Rehydrated } from 'aws-appsync-react';
-import gql from 'graphql-tag';
 import React from 'react';
-import { ApolloProvider, compose, graphql } from 'react-apollo';
+import { ApolloProvider } from 'react-apollo';
 
 import './App.css';
 import awsmobile from './aws-exports';
 import AppRouter from './AppRouter';
-import * as queries from './graphql/queries';
+
 
 Amplify.configure(awsmobile);
 
