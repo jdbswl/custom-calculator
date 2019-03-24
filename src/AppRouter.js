@@ -3,12 +3,20 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import AppSyncOrderList from './components/AppSyncOrderList';
 import AppSyncAddOrder from './components/AppSyncAddOrder';
-
+import OrderList from './components/OrderList';
 
 function Orders() {
   return (
     <div>
       <AppSyncOrderList />
+    </div>
+  )
+}
+
+function OrdeList() {
+  return (
+    <div>
+      <OrderList />
     </div>
   )
 }
@@ -37,6 +45,9 @@ function AppRouter() {
             <li>
               <Link to='/add-order/'>Add Order</Link>
             </li>
+            <li>
+              <Link to='/order-list/'>Order List</Link>
+            </li>
           </ul>
         </nav>
 
@@ -44,6 +55,7 @@ function AppRouter() {
         <Route path='/orders/' component={Orders} />
         <Route path='/about/' component={About} />
         <Route path='/add-order/' component={AddOrder} />
+        <Route path='/order-list/' component={OrderList} />
       </div>
     </Router>
   );
