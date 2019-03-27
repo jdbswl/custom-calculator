@@ -13,21 +13,25 @@ import * as queries from '../graphql/queries';
 const GET_ORDER = gql(queries.getOrder);
 
 const OrderDetails = (props) => (
-  <Query query={GET_ORDER} variables={{id:props.id}}>
+  <Query query={GET_ORDER} variables={{id:props.match.params.id}}>
     {({ loading, error, data }) => {
       if(loading) return (<p>Loading...</p>);
       if(error) {console.log(error); return (<p>Error</p>);};
       return (
         <div>
           <h2>Order Details</h2>
-            {
-              data.getOrder.name
-            }
+            <div>
+              <p>Name: {data.getOrder.name}</p>
+              <p>Link: /order-details/{data.getOrder.id} (todo: copy-to-clipboard button)</p>
+              <p>Notes: {data.getOrder.notes ? data.getOrder.notes : 'No Notes'}</p>
+              <p>List Items: {data.getOrder.listItems ? data.getOrder.listItems : 'No List Items'}</p>
+            </div>
         </div>
       );
     }}
   </Query>
 )
+
 
 export default OrderDetails;
 

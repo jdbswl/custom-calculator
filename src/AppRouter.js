@@ -24,7 +24,9 @@ function AppRouter() {
           <Route path='/' exact component={OrderList} />
           <Route path='/add-order/' component={AddOrder} />
           <Route path='/order-list/' component={OrderList} />
-          <Route path='/order-details/:id' component={OrderDetails} />
+          <Route path='/order-details/:id' render={
+            (props) => <OrderDetails {...props} />
+          } />
           <Route component={NotFound} />
         </Switch>
       </div>
@@ -32,7 +34,8 @@ function AppRouter() {
   );
 }
 
-            // <li>
+//          <Route path='/order-details/:id' component={OrderDetails} />
+           // <li>
             //   <Link to='/order-details/'>Order Details</Link>
             // </li>
 
