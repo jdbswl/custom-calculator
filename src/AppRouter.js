@@ -18,21 +18,22 @@ function AppRouter() {
             <li>
               <Link to='/order-list/'>Order List</Link>
             </li>
-            <li>
-              <Link to='/order-details/'>Order Details</Link>
-            </li>
           </ul>
         </nav>
         <Switch>
           <Route path='/' exact component={OrderList} />
           <Route path='/add-order/' component={AddOrder} />
           <Route path='/order-list/' component={OrderList} />
-          <Route path='/order-details/' component={OrderDetails} />
+          <Route path='/order-details/:id' component={OrderDetails} />
           <Route component={NotFound} />
         </Switch>
       </div>
     </Router>
   );
 }
+
+            // <li>
+            //   <Link to='/order-details/'>Order Details</Link>
+            // </li>
 
 export default AppRouter;
