@@ -12,8 +12,8 @@ import * as queries from '../graphql/queries';
 
 const GET_ORDER = gql(queries.getOrder);
 
-const OrderDetails = () => (
-  <Query query={GET_ORDER} variables={{id:'70326b5c-c78a-4a0e-952b-2c8ba213af60'}}>
+const OrderDetails = (props) => (
+  <Query query={GET_ORDER} variables={{id:props.id}}>
     {({ loading, error, data }) => {
       if(loading) return (<p>Loading...</p>);
       if(error) {console.log(error); return (<p>Error</p>);};

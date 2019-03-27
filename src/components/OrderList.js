@@ -37,7 +37,7 @@ const OrderList = () => (
               data.listOrders.items.map((order, index) => (
                 <ListItem key={order.id}>
                   <ListItemText primary={order.name} secondary={order.id}/>
-                  <ListItemLink href={'/orders/' + order.id}>Details</ListItemLink>
+                  <ListItemLink href={'/order-details/' + order.id}>Details</ListItemLink>
                 </ListItem>
               ))
             }
