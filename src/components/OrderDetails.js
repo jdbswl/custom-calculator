@@ -45,11 +45,13 @@ class OrderDetails extends React.Component {
                 console.log(error)
                 return (<p>Error</p>)
               } else {
+                const orderId = this.props.match.params.id
                 return (
                   <div>
                     <h2>Order Details</h2>
                     <div>
                        <p>{data.getOrder.name}</p>
+                       <p>{JSON.stringify(data.getOrder.notes)}</p>
                     </div>
 
                     <Mutation mutation={UPDATE_ORDER}>
@@ -59,8 +61,9 @@ class OrderDetails extends React.Component {
                           updateOrder({
                             variables: {
                               input: {
-                                id: 'be7e4149-54f9-46b3-bf72-cab07176e216',
-                                name: 'Updated'
+                                id: orderId,
+                                name: 'Updated',
+                                notes: ['cats', 'dogs', 'squirrels']
                               }
                             }
                           })
