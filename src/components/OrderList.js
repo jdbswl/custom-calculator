@@ -39,23 +39,35 @@ class OrderList extends React.Component {
         <QuickAddOrder />
         <Query query={LIST_ORDERS}>
           {({ loading, error, data }) => {
-            if(loading) return (<p>Loading...</p>);
-            if(error) return (<p>Error</p>);
-            return (
-              <div>
-                <h2>Orders</h2>
-                <List>
-                  {
-                    data.listOrders.items.map((order, index) => (
-                      <ListItem key={order.id}>
-                        <ListItemText primary={order.name} secondary={order.id}/>
-                        <ListItemLink href={'/order-details/' + order.id}>Details</ListItemLink>
-                      </ListItem>
-                    ))
-                  }
-                </List>
-              </div>
-            );
+            console.log('Order List Component Query Response Handler', loading, error, data)
+            if(loading) {
+              console.log('  Loading', loading)
+              return (
+                <p>Loading Orders...</p>
+              )
+            } else if(error) {
+              console.log('  error', error)
+              return (
+                <p>Error</p>
+              )
+            } else {
+              console.log('  data', data)
+              return (
+                <div>
+                  <h2>Orders</h2>
+                  <List>
+                    {
+                      data.listOrders.items.map((order, index) => (
+                        <ListItem key={order.id}>
+                          <ListItemText primary={order.name} secondary={order.id}/>
+                          <ListItemLink href={'/order-details/' + order.id}>Details</ListItemLink>
+                        </ListItem>
+                      ))
+                    }
+                  </List>
+                </div>
+              )
+            }
           }}
         </Query>
       </div>
@@ -64,7 +76,7 @@ class OrderList extends React.Component {
 }
 
 
-export default withStyles(styles)(OrderList);
+export default withStyles(styles)(OrderList)
 
 
       // return data.listOrders.items.map((order, index) => (
