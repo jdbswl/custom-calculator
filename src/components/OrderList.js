@@ -35,38 +35,34 @@ class OrderList extends React.Component {
   render() {
     console.log('Order List Component props:', this.props)
     return (
-      <h1>My Order List</h1>
+      <div>
+        <QuickAddOrder />
+        <Query query={LIST_ORDERS}>
+          {({ loading, error, data }) => {
+            if(loading) return (<p>Loading...</p>);
+            if(error) return (<p>Error</p>);
+            return (
+              <div>
+                <h2>Orders</h2>
+                <List>
+                  {
+                    data.listOrders.items.map((order, index) => (
+                      <ListItem key={order.id}>
+                        <ListItemText primary={order.name} secondary={order.id}/>
+                        <ListItemLink href={'/order-details/' + order.id}>Details</ListItemLink>
+                      </ListItem>
+                    ))
+                  }
+                </List>
+              </div>
+            );
+          }}
+        </Query>
+      </div>
     )
   }
 }
 
-
-// const OrderList = () => (
-//   <div>
-//     <QuickAddOrder />
-//     <Query query={LIST_ORDERS}>
-//       {({ loading, error, data }) => {
-//         if(loading) return (<p>Loading...</p>);
-//         if(error) return (<p>Error</p>);
-//         return (
-//           <div>
-//             <h2>Orders</h2>
-//             <List>
-//               {
-//                 data.listOrders.items.map((order, index) => (
-//                   <ListItem key={order.id}>
-//                     <ListItemText primary={order.name} secondary={order.id}/>
-//                     <ListItemLink href={'/order-details/' + order.id}>Details</ListItemLink>
-//                   </ListItem>
-//                 ))
-//               }
-//             </List>
-//           </div>
-//         );
-//       }}
-//     </Query>
-//   </div>
-// )
 
 export default withStyles(styles)(OrderList);
 
