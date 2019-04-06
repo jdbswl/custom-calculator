@@ -9,7 +9,7 @@ import { withStyles } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
-import QuickAddOrder from './QuickAddOrder'
+import AddOrder from './AddOrder'
 import * as queries from '../graphql/queries'
 
 
@@ -36,8 +36,12 @@ class OrderList extends React.Component {
     console.log('Order List Component props:', this.props)
     return (
       <div>
-        <QuickAddOrder />
-        <Query query={LIST_ORDERS}>
+        <AddOrder />
+        <Query
+          query={LIST_ORDERS}
+          variables={{}}
+          pollInterval={500}
+          >
           {({ loading, error, data }) => {
             console.log('Order List Component Query Response Handler', loading, error, data)
             if(loading) {
@@ -79,8 +83,4 @@ class OrderList extends React.Component {
 export default withStyles(styles)(OrderList)
 
 
-      // return data.listOrders.items.map((order, index) => (
-      //   <div key={index}>
-      //     <p>{index+1}. {order.name}  <Button variant="outlined" color="primary">Edit</Button></p>
-      //   </div>
-      // ));
+//  <Button variant="outlined" color="primary">Edit</Button></p>
