@@ -31,7 +31,14 @@ class OrderDetails extends React.Component {
     this.props.history.push(path)
   }
 
+  // onKeyPress(event) {
+  //   if(event.which === 13) {
+  //     event.preventDefault();
+  //   }
+  // }
+
   render() {
+    let newOrderName = 'New Order Name'
     return (
       <div>
         <Query
@@ -72,12 +79,15 @@ class OrderDetails extends React.Component {
                     )}
                     </Mutation>
 
+
+  
+
                     <Mutation mutation={DELETE_ORDER}>
                     {(deleteOrder, {data}) => (
                       <div>
                         <button onClick={e => {
                           deleteOrder({ variables: { input: {
-                            id: this.props.match.params.id
+                            id: orderId
                           }}})
                           this.backToOrderList()
                         }}>
@@ -107,6 +117,10 @@ class OrderDetails extends React.Component {
     )
   }
 }
+
+
+
+
 
 
 export default withRouter(OrderDetails)
