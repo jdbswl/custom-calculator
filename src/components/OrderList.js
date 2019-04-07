@@ -36,39 +36,32 @@ class OrderList extends React.Component {
     console.log('Order List Component props:', this.props)
     return (
       <div>
+
         <AddOrder />
-        <Query
-          query={LIST_ORDERS}
-          variables={{}}
-          pollInterval={500}
-          >
+
+        <Query query={LIST_ORDERS} variables={{}} pollInterval={500}>
           {({ loading, error, data }) => {
             console.log('Order List Component Query Response Handler', loading, error, data)
             if(loading) {
               console.log('  Loading', loading)
-              return (
-                <p>Loading Orders...</p>
-              )
+              return (<p> Loading Orders... </p>)
             } else if(error) {
               console.log('  error', error)
-              return (
-                <p>Error</p>
-              )
+              return (<p>Error</p>)
             } else {
               console.log('  data', data)
               return (
                 <div>
                   <h2>Orders</h2>
-                  <List>
-                    {
-                      data.listOrders.items.map((order, index) => (
-                        <ListItem key={order.id}>
-                          <ListItemText primary={order.name} secondary={order.id}/>
-                          <ListItemLink href={'/order-details/' + order.id}>Details</ListItemLink>
-                        </ListItem>
-                      ))
-                    }
-                  </List>
+                  <List>{
+                    data.listOrders.items.map((order, index) =>
+                    (
+                      <ListItem key={order.id}>
+                        <ListItemText primary={(index + 1) + ': ' + order.name} secondary={order.id}/>
+                        <ListItemLink href={'/order-details/' + order.id}>Details</ListItemLink>
+                      </ListItem>
+                    ))
+                  }</List>
                 </div>
               )
             }
@@ -78,6 +71,20 @@ class OrderList extends React.Component {
     )
   }
 }
+
+
+//
+// <ListItem key={order.id}>
+// </ListItem>
+
+//
+// <List>
+//   {
+//     data.listOrders.items.map((order, index) => (
+//       <OrderListItem />
+//     )
+//   }
+// </List>
 
 
 export default withStyles(styles)(OrderList)

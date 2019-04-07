@@ -1,10 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 
+
 import AddOrder from './components/AddOrder';
 import OrderList from './components/OrderList';
 import OrderDetails from './components/OrderDetails';
 import NotFound from './components/NotFound';
+
 
 function AppRouter() {
   return (
@@ -32,11 +34,7 @@ function AppRouter() {
       </div>
     </Router>
   );
-}
 
-//          <Route path='/order-details/:id' component={OrderDetails} />
-           // <li>
-            //   <Link to='/order-details/'>Order Details</Link>
-            // </li>
+}
 
 export default AppRouter;
