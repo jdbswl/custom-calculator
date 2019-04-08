@@ -20,6 +20,96 @@ const DELETE_ORDER = gql(mutations.deleteOrder)
 const UPDATE_ORDER = gql(mutations.updateOrder)
 
 
+function DeleteOrderButton({id, clickHandler}) {
+  return (
+    <Mutation mutation={DELETE_ORDER}>
+    {(deleteOrder, {data}) => (
+      <div>
+        <button onClick={e => {
+          if(!id) return
+          deleteOrder({ variables: { input: {
+            id
+          }}})
+          clickHandler()
+        }}>
+          Delete
+        </button>
+      </div>
+    )}
+    </Mutation>
+  )
+}
+
+
+function BackButton({clickHandler}) {
+  return (
+    <button onClick={e => {
+      clickHandler()
+    }}>
+      Order List
+    </button>
+  )
+}
+
+
+function BasicOrderDetails({order}) {
+  return (
+    <div>
+      <h2>Order Details</h2>
+       <p><span><label>Order Name: </label></span>{order ? order.name : ''}</p>
+    </div>
+  )
+}
+
+
+function UpdateOrderForm({id}) {
+  let updatedOrderName = ''
+  return (
+    <Mutation mutation={UPDATE_ORDER}>
+    {(updateOrder, {data}) => (
+      <div>
+        <form
+          onSubmit={e => {
+            e.preventDefault();
+            updateOrder({ variables: { input: {
+              id,
+              name: updatedOrderName.value
+            }}});
+            updatedOrderName.value = "";
+          }}
+        >
+          <input
+            ref={node => {
+              updatedOrderName = node;
+            }}
+          />
+          <button type="submit">Update Order Name</button>
+        </form>
+      </div>
+    )}
+    </Mutation>
+  )
+}
+//
+//
+// <div>
+//   <button onClick={e => {
+//     updateOrder({
+//       variables: {
+//         input: {
+//           id,
+//           name: 'Updated',
+//           notes: ['cats', 'dogs', 'squirrels']
+//         }
+//       }
+//     })
+//   }}>Update</button>
+//
+// </div>
+
+
+
+
 class OrderDetails extends React.Component {
   constructor(props) {
     super(props)
@@ -31,20 +121,11 @@ class OrderDetails extends React.Component {
     this.props.history.push(path)
   }
 
-  // onKeyPress(event) {
-  //   if(event.which === 13) {
-  //     event.preventDefault();
-  //   }
-  // }
-
   render() {
-    let newOrderName = 'New Order Name'
+    let newOrderName = ''
     return (
       <div>
-        <Query
-          query={GET_ORDER}
-          variables={{id:this.props.match.params.id}}
-          pollInterval={500}>
+        <Query query={GET_ORDER} variables={{id:this.props.match.params.id}} pollInterval={500}>
             {({ loading, error, data }) => {
               if(loading) {
                 return (<p>Loading...</p>)
@@ -53,63 +134,15 @@ class OrderDetails extends React.Component {
                 return (<p>Error</p>)
               } else {
                 const orderId = this.props.match.params.id
+                const order = data.getOrder
                 return (
                   <div>
-                    <h2>Order Details</h2>
-                    <div>
-                       <p>{data.getOrder.name}</p>
-                       <p>{JSON.stringify(data.getOrder.notes)}</p>
-                    </div>
-
-                    <Mutation mutation={UPDATE_ORDER}>
-                    {(updateOrder, {data}) => (
-                      <div>
-                        <button onClick={e => {
-                          updateOrder({
-                            variables: {
-                              input: {
-                                id: orderId,
-                                name: 'Updated',
-                                notes: ['cats', 'dogs', 'squirrels']
-                              }
-                            }
-                          })
-                        }}>Update</button>
-                      </div>
-                    )}
-                    </Mutation>
-
-
-  
-
-                    <Mutation mutation={DELETE_ORDER}>
-                    {(deleteOrder, {data}) => (
-                      <div>
-                        <button onClick={e => {
-                          deleteOrder({ variables: { input: {
-                            id: orderId
-                          }}})
-                          this.backToOrderList()
-                        }}>
-                          Delete
-                        </button>
-                      </div>
-                    )}
-                    </Mutation>
+                    <BasicOrderDetails order={order}/>
+                    <UpdateOrderForm id={orderId}/>
+                    <BackButton clickHandler={this.backToOrderList}/>
+                    <DeleteOrderButton id={orderId} clickHandler={this.backToOrderList}/>
                   </div>
                 )
-                // return (
-                //   <div>
-                //     <h2>Order Details</h2>
-                //       <div>
-
-                //         <p>Link: /order-details/{data.getOrder.id} (todo: copy-to-clipboard button)</p>
-
-                //         <p>Line Items: {data.getOrder.lineItems ? data.getOrder.lineItems : 'No Line Items'}</p>
-                //       </div>
-
-                //   </div>
-                // )
               }
             }}
         </Query>
@@ -119,8 +152,29 @@ class OrderDetails extends React.Component {
 }
 
 
-
-
-
-
 export default withRouter(OrderDetails)
+
+
+//
+// function UpdateOrderFormOld({id}) {
+//   return (
+//     <Mutation mutation={UPDATE_ORDER}>
+//     {(updateOrder, {data}) => (
+//       <div>
+//         <button onClick={e => {
+//           updateOrder({
+//             variables: {
+//               input: {
+//                 id,
+//                 name: 'Updated',
+//                 notes: ['cats', 'dogs', 'squirrels']
+//               }
+//             }
+//           })
+//         }}>Update</button>
+//
+//       </div>
+//     )}
+//     </Mutation>
+//   )
+// }

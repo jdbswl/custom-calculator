@@ -73,21 +73,4 @@ class OrderList extends React.Component {
 }
 
 
-//
-// <ListItem key={order.id}>
-// </ListItem>
-
-//
-// <List>
-//   {
-//     data.listOrders.items.map((order, index) => (
-//       <OrderListItem />
-//     )
-//   }
-// </List>
-
-
 export default withStyles(styles)(OrderList)
-
-
-//  <Button variant="outlined" color="primary">Edit</Button></p>
