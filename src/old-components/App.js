@@ -9,8 +9,12 @@ import './App.css'
 import awsmobile from './aws-exports'
 
 
+
 Amplify.configure(awsmobile)
 
+function x => (
+  <h1>X</h1>
+)
 
 class App extends React.Component {
   render() {
@@ -33,7 +37,7 @@ class App extends React.Component {
     return (
       <ApolloProvider client={client}>
         <Rehydrated>
-          <h1>X</h1>
+          <Sidebar />
         </Rehydrated>
       </ApolloProvider>
     );
