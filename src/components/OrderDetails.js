@@ -18,6 +18,7 @@ import * as queries from '../graphql/queries'
 const GET_ORDER = gql(queries.getOrder)
 const DELETE_ORDER = gql(mutations.deleteOrder)
 const UPDATE_ORDER = gql(mutations.updateOrder)
+const CREATE_LINE_ITEM = gql(mutations.createLineItem)
 
 
 function DeleteOrderButton({id, clickHandler}) {
@@ -57,6 +58,7 @@ function BasicOrderDetails({order}) {
     <div>
       <h2>Order Details</h2>
        <p><span><label>Order Name: </label></span>{order ? order.name : ''}</p>
+       <p><span><label>Line Items: </label></span>{order ? JSON.stringify(order.lineItems) : 'No Line Items'}</p>
     </div>
   )
 }
@@ -90,6 +92,36 @@ function UpdateOrderForm({id}) {
     </Mutation>
   )
 }
+
+// 
+// function AddLineItem({id}) {
+//   let lineItemName = ''
+//   let lineItemCost = ''
+//   return (
+//     <Mutation mutation={CREATE_LINE_ITEM}>
+//     {(createLineItem, {data}) => (
+//       <div>
+//         <form
+//           onSubmit={e => {
+//             e.preventDefault();
+//             createLineItem({ variables: { input: {
+//               name:
+//             }}});
+//             updatedOrderName.value = "";
+//           }}
+//         >
+//           <input
+//             ref={node => {
+//               updatedOrderName = node;
+//             }}
+//           />
+//           <button type="submit">Update Order Name</button>
+//         </form>
+//       </div>
+//     )}
+//     </Mutation>
+//   )
+// }
 //
 //
 // <div>
