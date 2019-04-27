@@ -2,7 +2,7 @@ import Amplify from 'aws-amplify'
 import { withAuthenticator } from 'aws-amplify-react'
 import AWSAppSyncClient from 'aws-appsync'
 import { Rehydrated } from 'aws-appsync-react'
-import React, { ReactNode } from 'react'
+import React, { ReactChild } from 'react'
 import { ApolloProvider } from 'react-apollo'
 
 import './App.css'
@@ -29,6 +29,7 @@ class App extends React.Component {
       }
     })
 
+    // use default plus named slots projection
     return (
       <ApolloProvider client={client}>
         <Rehydrated>
@@ -47,19 +48,21 @@ class App extends React.Component {
 }
 
 type CardProps = {
-  children:  {
-    header: ReactNode,
-    content: ReactNode
-  }
+  children: NamedCardChildSlots
 }
+
+type NamedCardChildSlots = {
+  header?: ReactNode,
+  content: ReactNode
+}
+
 class Card extends React.Component<CardProps> {
-  // use named slots projection
+
   render() {
     const { header, content } = this.props.children
-
     return (
       <div className="card">
-        <div className="card-header">{header}</div>
+        {header ? <div className="card-header">{header}</div> : null}
         <div className="card-content">{content}</div>
       </div>
     )
@@ -73,3 +76,42 @@ export default withAuthenticator(App, {
     hiddenDefaults: ['phone_number']
   }
 })
+
+
+
+
+// const isNamedSlots = () => true
+//
+//
+// class Card extends React.Component<CardProps> {
+//
+//   render() {
+//     const { children } = this.props
+//
+//     if( !children ) {
+//       throw new Error('Card missing children')
+//     }
+//
+//     if(isNamedSlots(children)) {
+//       const { header, content } = children
+//       return (
+//         <div className="card">
+//           {header ? <div className="card-header">{header}</div> : null}
+//           <div className="card-content">{content}</div> : null
+//         </div>
+//       )
+//     }
+//
+//     return <div className="card">{children}</div>
+//   }
+// }
+//
+// const isNamedSlots = () => true
+
+
+
+
+// const isObject = <T extends object>(value: any): value is T =>
+//   typeof value === 'object' && typeof value !== 'function' && value != undefined
+// const isNamedSlots = (children: any): children is NamedCardChildSlots =>
+//   isObject(children) && 'content' in children
