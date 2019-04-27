@@ -22,6 +22,7 @@ import { Auth } from 'aws-amplify';
 
 import AddOrder from './components/AddOrder'
 import NotFound from './components/NotFound'
+import OrderList from './components/OrderList'
 
 const drawerWidth = 240
 
@@ -59,7 +60,7 @@ const styles = theme => ({
 
 
 const Home = () => (<h1>Home</h1>)
-function OrderList(props) {
+function MockOrderList(props) {
   const orders = [{
     orderId: 'abc',
     name: 'First Order'
