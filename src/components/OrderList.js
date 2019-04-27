@@ -58,7 +58,7 @@ class OrderList extends React.Component {
                     (
                       <ListItem key={order.id}>
                         <ListItemText primary={(index + 1) + ': ' + order.name} secondary={order.id}/>
-                        <ListItemLink href={'/order-details/' + order.id}>Details</ListItemLink>
+                        <ListItemLink href={'/orders/' + order.id}>Details</ListItemLink>
                       </ListItem>
                     ))
                   }</List>
