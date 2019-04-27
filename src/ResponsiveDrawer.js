@@ -21,6 +21,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { Auth } from 'aws-amplify';
 
 import AddOrder from './components/AddOrder'
+import NotFound from './components/NotFound'
 
 const drawerWidth = 240
 
@@ -202,8 +203,9 @@ class ResponsiveDrawer extends React.Component {
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Switch>
-            <Route exact path='/' component={Home}/>
-            <Route path='/orders' component={Orders}/>
+            <Route exact path='/' component={ Home }/>
+            <Route path='/orders' component={ Orders }/>
+            <Route component={ NotFound }/>
           </Switch>
         </main>
       </div>
