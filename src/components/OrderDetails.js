@@ -93,7 +93,7 @@ function UpdateOrderForm({id}) {
   )
 }
 
-// 
+//
 // function AddLineItem({id}) {
 //   let lineItemName = ''
 //   let lineItemCost = ''
@@ -149,7 +149,7 @@ class OrderDetails extends React.Component {
   }
 
   backToOrderList() {
-    let path = `/order-list`
+    let path = `/orders`
     this.props.history.push(path)
   }
 
@@ -157,7 +157,7 @@ class OrderDetails extends React.Component {
     let newOrderName = ''
     return (
       <div>
-        <Query query={GET_ORDER} variables={{id:this.props.match.params.id}} pollInterval={500}>
+        <Query query={GET_ORDER} variables={{id:this.props.match.params.orderId}} pollInterval={500}>
             {({ loading, error, data }) => {
               if(loading) {
                 return (<p>Loading...</p>)
@@ -165,7 +165,7 @@ class OrderDetails extends React.Component {
                 console.log(error)
                 return (<p>Error</p>)
               } else {
-                const orderId = this.props.match.params.id
+                const orderId = this.props.match.params.orderId
                 const order = data.getOrder
                 return (
                   <div>

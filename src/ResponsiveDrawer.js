@@ -23,6 +23,8 @@ import { Auth } from 'aws-amplify';
 import AddOrder from './components/AddOrder'
 import NotFound from './components/NotFound'
 import OrderList from './components/OrderList'
+import OrderDetails from './components/OrderDetails'
+import Home from './components/Home'
 
 const drawerWidth = 240
 
@@ -59,7 +61,7 @@ const styles = theme => ({
 })
 
 
-const Home = () => (<h1>Home</h1>)
+const MockHome = () => (<h1>Home</h1>)
 function MockOrderList(props) {
   const orders = [{
     orderId: 'abc',
@@ -85,7 +87,7 @@ function MockOrderList(props) {
 }
 
 
-function OrderDetails(props) {
+function MockOrderDetails(props) {
   const orderId = props.match.params.orderId
   return (
     <React.Fragment>
